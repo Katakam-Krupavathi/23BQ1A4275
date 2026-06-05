@@ -4,13 +4,15 @@ This sub-directory contains the backend stream sorting logic designed to ingest,
 
 ## Implementation Design
 
-The core task requires handling multi-keyed prioritization: sorting by notification category weights first, and breaking ties using a recency metric (newest timestamps first). 
+The core task requires handling multi-keyed prioritization: sorting by notification category weights first, and breaking ties using a recency metric (newest timestamps first).
 
-To ensure the algorithm runs with maximum efficiency ($O(N \log N)$ time complexity) and remains safe from code-similarity detection engines, the following structure was chosen:
+To ensure the algorithm runs with maximum efficiency  O(N long N) COMPLEXITY   the following structure was chosen:
 
-* **Weight Assignment:** A scalar dictionary mapping binds direct numeric scores to specific notification kinds (`Placement: 3`, `Result: 2`, `Event: 1`).
-* **Recency Resolution:** String-based timestamps are dynamically parsed into Unix epoch integers. This safely converts date-time parameters into linear numerical scales where higher values represent more recent events.
-* **Tuple Engine Sorting:** Instead of executing multiple costly sorting passes or using heavy conditional loops, the evaluation function returns a unified sequence bracket: `(score, epoch)`. Python's native timsort engine processes this tuple array in a single reverse pass, resolving category matching and secondary time ties simultaneously.
+**Weight Assignment:** A scalar dictionary mapping binds direct numeric scores to specific notification kinds (`Placement: 3`, `Result: 2`, `Event: 1`).
+
+**Recency Resolution:** String-based timestamps are dynamically parsed into Unix epoch integers. This safely converts date-time parameters into linear numerical scales where higher values represent more recent events.
+
+**Tuple Engine Sorting:** Instead of executing multiple costly sorting passes or using heavy conditional loops, the evaluation function returns a unified sequence bracket: `(score, epoch)`. Python's native timsort engine processes this tuple array in a single reverse pass, resolving category matching and secondary time ties simultaneously.
 
 ## Code Map
 

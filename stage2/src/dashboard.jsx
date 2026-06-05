@@ -23,6 +23,7 @@ export default function Dashboard() {
     }
   });
 
+  
   const syncFeed = useCallback(async () => {
     setLoading(true);
     setErr('');
