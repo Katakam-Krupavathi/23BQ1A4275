@@ -13,30 +13,25 @@ def evaluate_node(x):
 
 def pull_feed():
     try:
-        r = requests.get("http://4.224.186.213/evaluation-service/notifications", timeout=4)
+        r = requests.get("http://4.224.186.213/evaluation-service/notifications", timeout=5)
         if r.status_code == 200:
-            res = r.json().get("notifications", [])
-            if res:
-                return res
-    except:
-        pass
-    
-    
-    return [
-        {"ID": "1", "Type": "Event", "Message": "Annual Campus Fest", "Timestamp": "2026-06-05 09:00:00"},
-        {"ID": "2", "Type": "Placement", "Message": "Google Drive Phase 1", "Timestamp": "2026-06-05 08:30:00"},
-        {"ID": "3", "Type": "Result", "Message": "B.Tech Semester Results", "Timestamp": "2026-06-05 09:15:00"},
-        {"ID": "4", "Type": "Placement", "Message": "Amazon SDE Drive", "Timestamp": "2026-06-05 09:45:00"}
-    ]
+            return r.json().get("notifications", [])
+    except Exception as e:
+        print(f"Network Connection Error: {e}")
+    return []
 
 def main():
     cap = int(sys.argv[1]) if len(sys.argv) > 1 else 10
     feed = pull_feed()
     
+    if not feed:
+        print(" The server API is currently running but contains 0 live notifications.")
+        return
+    
     stream = sorted(feed, key=evaluate_node, reverse=True)[:cap]
     
     print("=" * 60)
-    print(f"TOP {cap} ENTRIES")
+    print(f" STREAM DISPLAY: TOP {len(stream)} LIVE ENTRIES")
     print("=" * 60)
     for rank, node in enumerate(stream, 1):
         print(f"{rank:02d}. [{node.get('Type'):<10}] {node.get('Message'):<30} | {node.get('Timestamp')}")
