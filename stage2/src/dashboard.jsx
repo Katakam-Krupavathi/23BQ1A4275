@@ -81,8 +81,8 @@ export default function Dashboard() {
     <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
       <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 2 }}>
         <Box>
-          <Typography variant="h5" fontWeight="700" color="text.primary">Intelligence Feed Hub</Typography>
-          <Typography variant="caption" color="text.secondary">Stage 2 Telemetry Stream System</Typography>
+          <Typography variant="h5" fontWeight="700" color="text.primary">Campus Notification Microservice</Typography>
+
         </Box>
         <Tabs value={view} onChange={toggleTab} variant="scrollable" scrollButtons="auto">
           <Tab icon={<Inbox fontSize="small" />} label="Priority Inbox" iconPosition="start" />
