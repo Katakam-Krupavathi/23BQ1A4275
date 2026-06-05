@@ -1,0 +1,8 @@
+{
+     "name": "logging_middleware",
+     "version": "1.0.0",
+     "type": "module",
+     "main": "logger.js"
+   }
+
+   
